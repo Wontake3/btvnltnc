@@ -1,1 +1,154 @@
 
+#include <bits/stdc++.h>
+using namespace std;
+  // cần 1 hàm để tính độ dài xâu
+  int a_strlen(const char* a){
+     int len = 0;
+     while (*(a + len) != '\0' ) len ++; // đếm số ký tự cho đến khi gặp ký tự null '\0
+     return len;
+  }
+  // cần 1 hàm sao chép xâu
+   void a_strcpy(char* dest, const char * src) {
+      while((*dest++ = *src++) != '\0'); // // sao chép từng ký tự cho tới khi gặp 0
+
+   }
+   // đảo xâu (đảo- reverse thứ tự các ký tự trong xâu)
+   void reverse(char a[]) {
+        int len = a_strlen(a); // lấy độ dài xâu trước
+        for (int i = 0; i < len / 2; i++) { // duyệt từ đầu tới giữa xâu
+            char b = a[i]; // lưu tạm ký tự
+            a[i] = a[len - 1 - i]; // đổi chỗ ký tự i với ký tự ở vị trí cuối về đầu
+            a[len - 1 - i] = b; // gán lại giá trị lưu tạm vào vị trí đối diện
+        }
+   }
+   // hàm xóa hết ký tự c trong xâu a
+   void delete_char(char a[], char c){
+     char *src = a, *dst = a; // src duyệt qua từng ký tự, dst là new location
+     while (*src) { // lặp toàn xâu
+         if (*src != c) { // nếu ký tự hiện tại không phải c thì giữ lại
+             *dst = *src; // ghi lại ký tự hợp lệ (ko phải c) vào vị trí dst
+             dst++; // di chuyển con trỏ dst lên
+         }
+         src++;//di chuyển con trỏ src để kiểm tra ký tự tiếp theo
+     }
+     *dst = '\0'; // đặt ký tự kết thúc xâu
+
+   }
+    // hàm độn phải : thêm dấu cách vòa cuối để xâu đạt độ dài n
+    void pad_right(char a[], int n){
+       int len = a_strlen(a); // lấy độ dài xâu trước
+       if ( len >= n) return; // nếu đã đủ or dài hơn thì ko làm gì
+
+       char *ptr = a + len; // con trỏ đến vị trí bắt đầu thêm khoảng trắng
+       for ( int i = len; i < n; i++) {
+        *ptr = ' '; // gán ký tự khoảng trắng
+        ptr++; // di chuyển con trỏ sang phải
+       }
+       *ptr = '\0'; // đặt ký tự kết thúc xâu
+    }
+
+    // hàm độn trái : thêm dấu cách vào đầu để xâu đạt độ dài n
+    void pad_left(char a[], int n) {
+       int len = a_strlen(a); // vẫn là lấy độ dài xâu trước
+       if ( len >= n) return; // vẫn là đã đủ or dài hơn thì để im
+       int shift = n - len; // số lượng khoảng trắng cần thêm
+    for ( int i = len; i >= 0; i--) { // dịch toàn bộ xâu sang phải để tạo chỗ trống cho khoảng trắng
+        a[i+shift] = a[i]; // dịch ký tự sang phải shift vị trí
+
+    }
+    for (int i =0; i < shift; i++) {
+        a[i] = ' ';
+    } }
+
+    // hàm cắt xâu : giữ lại tối đa n ký tự đầu tiên
+    void cut(char a[], int n){
+     if (a_strlen(a) > n) {
+        a[n] = '\0'; // đặt dấu kết thúc tại vị trí thứ n -> giới hạn độ dài
+     } }
+
+     // đối gương : kiểm tra coi đối xứng không
+     bool is_palindrome(char a[]) {
+       int len = a_strlen(a);
+       for (int i  = 0; i < len; i++) { // so sáng từng cặp ký tự từ hai đầu
+        if ( a[i] != a[len - 1 - i]) { // nếu có cặp nào không giống nhau thì ko đối xứng
+             return false;
+
+
+        }
+       }
+       return true; // đối xứng
+     }
+
+     // lọc trái : xóa tất cả dấu cách ở đầu xâu
+     void trim_left(char a[]) {
+         char *start = a;
+         while (*start == ' ') start ++; // tìm vị trí đầu tiên không phải dấu cách
+         if ( start != a) strcpy(a, start); // dịch chuyển phần còn lại lên đầu
+     }
+     // lọc phải : xóa tất cả dấu cách ở cuối xâu
+     void trim_right(char a[]) {
+         int len = a_strlen(a);
+         while ( len > 0&& a[len-1] == ' ') { // kiểm tra từng ký tự cuối xâu
+             a[--len] = '\0'; // thay thế ký tự khoảng trắng cuối cùng = '\0
+         }
+       }
+
+       // hàm main demo
+
+     int main() {
+    char str1[100] = "  hello  ";
+    cout << "Original: [" << str1 << "]\n";
+    trim_right(str1);
+    cout << "After trim_right: [" << str1 << "]\n";
+    trim_left(str1);
+    cout << "After trim_left: [" << str1 << "]\n";
+
+    char str2[100] = "abcba";
+    cout << "Is palindrome: " << (is_palindrome(str2) ? "Yes" : "No") << "\n";
+
+    char str3[100] = "abcdef";
+    reverse(str3);
+    cout << "After reverse: [" << str3 << "]\n";
+
+    char str4[100] = "hello world";
+    delete_char(str4, 'o');
+    cout << "After delete_char: [" << str4 << "]\n";
+
+    char str5[100] = "text";
+    pad_right(str5, 10);
+    cout << "After pad_right: [" << str5 << "]\n";
+
+    char str6[100] = "text";
+    pad_left(str6, 10);
+    cout << "After pad_left: [" << str6 << "]\n";
+
+    char str7[100] = "long text";
+    cut(str7, 4);
+    cout << "After cut: [" << str7 << "]\n";
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
