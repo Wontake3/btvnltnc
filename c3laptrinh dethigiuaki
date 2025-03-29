@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+ void Bubblesort(int arr[], int n) {
+   for (int i = 0; i < n-1; i++) { // bước 1 : lặp qua mảng n-1 lần
+       bool swapped = false; // bước 2 : đặt cờ kiểm tra hoán đổi
+       for (int j = 0;j < n - i - 1; j++) { // bước 3 : so sánh và hoán đổi
+           if ( arr[j] > arr[j+1]) {
+            swap(arr[j], arr[j+1]);
+            swapped = true;         // nếu có hoán đổi, đặt cờ thành true
+
+           }
+       }
+       if(!swapped) break; // bước cuối : nếu ko có hoán đổi thì thoát
+
+   }
+
+ }
+
+ // hàm để in mảng
+   void printArray(int arr[], int n) {
+      for(int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+      cout << endl;
+   }
+ // hàm main để test hàm sắp xếp, nhập mảng
+    int main() {
+    int n;
+    cout << "Nhap so luong phan tu: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Nhap " << n << " phan tu ";
+    for ( int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+     cout << "Mang ban dau: ";
+     printArray(arr, n);    // gỌi ra 2 hàm để lần lượt in dãy r sắp xếp nổi bot
+     Bubblesort(arr, n);
+
+     cout << "Mang sau khi sap xep: ";
+     printArray(arr, n);    // sắp xếp xong lại gọi tiếp để in dãy ra màn hình
+
+     return 0;
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
