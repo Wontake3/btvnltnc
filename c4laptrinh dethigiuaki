@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+    // hàm tìm kiếm nhị phân đệ quy
+     int binarySearch(int arr[], int left, int right, int key) {
+       if(left > right) {
+        return -1; // không tìm thấy
+       }
+       int mid = left + (right - left) /2;
+
+       if (arr[mid] == key) { // nghĩa là giá trị mid trong arr = key
+           return mid; // nghĩa là tìm thấy rồi
+       }
+       else if (arr[mid]> key) {
+        return binarySearch(arr, left, mid - 1, key); // tìm bên trái
+       }                  // chổ này chính là gọi đệ quy
+       else {
+         return binarySearch(arr, mid +1, right, key); // tìm bên phải
+
+       }
+       }
+       void printArray( int arr[], int n){
+               for (int i = 0; i < n; i++)
+                cout << arr[i] << " ";
+               cout << endl;
+       }
+       int main() {
+         int n, key;
+         cout <<"Nhap so luong phan tu: ";
+         cin >> n;
+
+         int arr[n];
+         cout << "Nhap " << n << " phan tu da sap xep: ";
+         for ( int i = 0; i < n; i++){
+            cin >> arr[i];
+         }
+         cout << "Nhap gia tri can tim: ";
+         cin >> key;
+
+         int result = binarySearch(arr, 0, n-1, key);
+         if(result != -1) {
+            cout << "Phan tu " << key << " duoc tim thay tai vi tri " << result+1 /* thêm +1 để nó không bị lệch vị trí */<< endl;
+         }
+       else{ cout << "Phan tu " << key << " khong ton tai trong mang" << endl;
+       }
+       return 0;
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
