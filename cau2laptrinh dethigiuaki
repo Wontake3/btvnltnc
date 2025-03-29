@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Hướng di chuyển: lên, xuống, trái, phải, và 4 đường chéo
+int dx[] = {-1, 1, 0, 0, -1, -1, 1, 1};
+int dy[] = {0, 0, -1, 1, -1, 1, -1, 1};
+
+int main() {
+    int M, N, K, Q;
+    cin >> M >> N >> K >> Q;
+
+    vector<vector<int>> grid(M, vector<int>(N, 0)); // Khởi tạo lưới kích thước MxN với giá trị 0
+
+    // Xử lý K truy vấn cập nhật giá trị
+    for (int i = 0; i < K; i++) {
+        int x, y, v;
+        cin >> x >> y >> v;
+        grid[x][y] = v; // Gán giá trị v vào ô (x, y)
+    }
+
+    // Xử lý Q truy vấn tính tổng các ô xung quanh
+    for (int i = 0; i < Q; i++) {
+        int x, y;
+        cin >> x >> y;
+        int sum = 0;
+
+        // Duyệt qua 8 ô xung quanh (nếu hợp lệ)
+        for (int d = 0; d < 8; d++) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+
+            if (nx >= 0 && nx < M && ny >= 0 && ny < N) {
+                sum += grid[nx][ny];
+            }
+        }
+
+        cout << sum << endl;
+    }
+
+    return 0;
+}
